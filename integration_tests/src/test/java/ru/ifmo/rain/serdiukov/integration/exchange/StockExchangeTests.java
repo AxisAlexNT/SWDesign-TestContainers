@@ -167,7 +167,7 @@ public class StockExchangeTests {
                 )
         );
 
-        assertThat("Stock creation should have been successful", responseUpdate.getStatusCode(), is(equalTo(HttpStatus.OK)));
+        assertThat("Stock price update should have been successful", responseUpdate.getStatusCode(), is(equalTo(HttpStatus.OK)));
         assertThat("API call should have returned body", responseUpdate.getBody(), is(not(nullValue())));
         assertThat("Stock should have updated price", responseUpdate.getBody().getPrice(), is(equalTo(newPrice)));
         assertThat("Updated stock should have the same index as provided", responseUpdate.getBody().getIndex(), is(equalTo(index)));
@@ -296,7 +296,7 @@ public class StockExchangeTests {
                 )
         );
 
-        assertThat("Stock creation should have been successful", responseUpdate.getStatusCode(), is(equalTo(HttpStatus.OK)));
+        assertThat("Stock price change should have been successful", responseUpdate.getStatusCode(), is(equalTo(HttpStatus.OK)));
         assertThat("API call should have returned body", responseUpdate.getBody(), is(not(nullValue())));
         assertThat("Stock should have the same price", responseUpdate.getBody().getPrice(), is(equalTo(price)));
         assertThat("Updated stock should have the same index as provided", responseUpdate.getBody().getIndex(), is(equalTo(index)));
@@ -410,7 +410,7 @@ public class StockExchangeTests {
                     )
             );
 
-            assertThat("Stock creation should have been successful", responseUpdate.getStatusCode(), is(equalTo(HttpStatus.OK)));
+            assertThat("Stock price change should have been successful", responseUpdate.getStatusCode(), is(equalTo(HttpStatus.OK)));
             assertThat("API call should have returned body", responseUpdate.getBody(), is(not(nullValue())));
             assertThat("Stock should have the same price", responseUpdate.getBody().getPrice(), is(equalTo(price)));
             assertThat("Updated stock should have the same index as provided", responseUpdate.getBody().getIndex(), is(equalTo(index)));
@@ -428,7 +428,7 @@ public class StockExchangeTests {
                             "login", logins[i]
                     )
             );
-            assertThat("Registration should have been successful", responseGet.getStatusCode(), is(equalTo(HttpStatus.OK)));
+            assertThat("User query should have been successful", responseGet.getStatusCode(), is(equalTo(HttpStatus.OK)));
             assertThat("API call should have returned body", responseGet.getBody(), is(not(nullValue())));
             assertThat("Created user should have the same login as provided", responseGet.getBody().getLogin(), is(equalTo(logins[i])));
             users.set(i, responseGet.getBody());
@@ -461,7 +461,7 @@ public class StockExchangeTests {
                             StockOperationResponseDTO.class
                     );
 
-                    assertThat("Balance update should have been successful", responseUpdate.getStatusCode(), is(equalTo(HttpStatus.OK)));
+                    assertThat("Buy operation should have been successful", responseUpdate.getStatusCode(), is(equalTo(HttpStatus.OK)));
                     assertThat("API call should have returned body", responseUpdate.getBody(), is(not(nullValue())));
                     assertThat("Updated user should have the same login as provided", responseUpdate.getBody().getOperation().getUser().getLogin(), is(equalTo(login)));
                     assertThat("Updated user should have balance changed", responseUpdate.getBody().getOperation().getUser().getBalance(), is(equalTo(user.getBalance() - stock.getPrice() * buyAmount)));
@@ -477,7 +477,7 @@ public class StockExchangeTests {
                             )
                     );
 
-                    assertThat("API call should have been successful", responseDecrease.getStatusCode(), is(equalTo(HttpStatus.OK)));
+                    assertThat("Stock query should have been successful", responseDecrease.getStatusCode(), is(equalTo(HttpStatus.OK)));
                     assertThat("API call should have returned body", responseDecrease.getBody(), is(not(nullValue())));
                     assertThat("Stock should have the same index as provided", responseDecrease.getBody().getIndex(), is(equalTo(index)));
                     assertThat("Stock availability should have been decreased", responseDecrease.getBody().getAvailableAmount(), is(equalTo(stocks.get(stockId).getAvailableAmount() - buyAmount)));
@@ -520,7 +520,7 @@ public class StockExchangeTests {
                             StockOperationResponseDTO.class
                     );
 
-                    assertThat("Balance update should have been successful", responseUpdate.getStatusCode(), is(equalTo(HttpStatus.OK)));
+                    assertThat("Sell operation should have been successful", responseUpdate.getStatusCode(), is(equalTo(HttpStatus.OK)));
                     assertThat("API call should have returned body", responseUpdate.getBody(), is(not(nullValue())));
                     assertThat("Updated user should have the same login as provided", responseUpdate.getBody().getOperation().getUser().getLogin(), is(equalTo(login)));
                     assertThat("Updated user should have balance changed", responseUpdate.getBody().getOperation().getUser().getBalance(), is(equalTo(user.getBalance() + stock.getPrice() * sellAmount)));
@@ -536,7 +536,7 @@ public class StockExchangeTests {
                             )
                     );
 
-                    assertThat("API call should have been successful", responseDecrease.getStatusCode(), is(equalTo(HttpStatus.OK)));
+                    assertThat("Stock query should have been successful", responseDecrease.getStatusCode(), is(equalTo(HttpStatus.OK)));
                     assertThat("API call should have returned body", responseDecrease.getBody(), is(not(nullValue())));
                     assertThat("Stock should have the same index as provided", responseDecrease.getBody().getIndex(), is(equalTo(index)));
                     assertThat("Stock availability should have been decreased", responseDecrease.getBody().getAvailableAmount(), is(equalTo(stocks.get(stockId).getAvailableAmount() + sellAmount)));
@@ -591,7 +591,7 @@ public class StockExchangeTests {
                             "login", users.get(i).getLogin()
                     )
             );
-            assertThat("Stock creation should have been successful", responseAudit.getStatusCode(), is(equalTo(HttpStatus.OK)));
+            assertThat("API call should have been successful", responseAudit.getStatusCode(), is(equalTo(HttpStatus.OK)));
             assertThat("API call should have returned body", responseAudit.getBody(), is(not(nullValue())));
             long totalAmount = users.get(i).getBalance();
             for (final Map.Entry<Stock, Long> stockLongEntry : users.get(i).getPortfolio().entrySet()) {
@@ -604,7 +604,7 @@ public class StockExchangeTests {
                                 "index", posessedStock.getIndex()
                         )
                 );
-                assertThat("Stock creation should have been successful", responseQuery.getStatusCode(), is(equalTo(HttpStatus.OK)));
+                assertThat("API call should have been successful", responseQuery.getStatusCode(), is(equalTo(HttpStatus.OK)));
                 assertThat("API call should have returned body", responseQuery.getBody(), is(not(nullValue())));
                 totalAmount += responseQuery.getBody().getPrice() * amount;
             }
