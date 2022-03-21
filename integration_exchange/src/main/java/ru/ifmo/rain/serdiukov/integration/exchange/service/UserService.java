@@ -60,7 +60,7 @@ public class UserService {
                 .stream()
                 .mapToLong(e -> e.getKey().getPrice() * e.getValue())
                 .reduce(Long::sum)
-                .orElseThrow(() -> new RuntimeException("Cannot compute sum of all stock prices for user " + userLogin + "??"));
+                .orElse(0L); // If no stock was owned by this user
         return user.getBalance() + totalStockPrice;
     }
 }
